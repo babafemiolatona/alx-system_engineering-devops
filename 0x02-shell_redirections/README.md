@@ -1,6 +1,6 @@
 # Shell, I/O Redirections and filters
 
-The goal is to acquire knowledge on using Shell commands for handling standard input and output, as well as utilizing redirections to combine commands and filters
+The aim is to acquire knowledge on using Shell commands for handling standard input and output, as well as utilizing redirections to combine commands and filters
 
 
 # Technologies
