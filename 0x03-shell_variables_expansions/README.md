@@ -25,6 +25,6 @@ The aim is to gain understanding on various components of the Shell, such as the
 | ```12-combinations``` | This script prints all possible combinations of two letters, except ```oo``` |
 | ```13-print_float``` | This script prints a number with two decimal places |
 | ```100-decimal_to_hexadecimal``` | This script converts a number from base 10 to base 16 |
-| ```101-rot13``` | This script that encodes and decodes text using the rot13 encryption |
-| ```102-odd``` | This script that prints every other line from the input, starting with the first line|
+| ```101-rot13``` | This script encodes and decodes text using the rot13 encryption |
+| ```102-odd``` | This script prints every other line from the input, starting with the first line|
 | ```103-water_and_stir``` | This script adds the two numbers stored in the environment variables ```WATER``` and ```STIR``` and prints the result |
