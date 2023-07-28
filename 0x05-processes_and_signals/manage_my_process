@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # Infinitely write I am alive to a file, and sleep for 2 seconds between each loop
+
+file="/tmp/my_process"
+
 while true
 do
-	echo "I am alive!" >> /tmp/my_process
+	echo "I am alive!" >> "$file"
 	sleep 2
 done
