@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Print whoami as user passed in
+
+sudo -u $1 whoami
