@@ -1,41 +1,37 @@
 #!/usr/bin/python3
-"""Gather data from an API"""
+"""Contains the count_words function"""
 import requests
 
 
-def count_words(subreddit, word_list, after=None, word_count={}):
-    """
-    Queries the Reddit API, parses the title of all hot articles,
-    and prints a sorted count of given keywords
-    """
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    headers = {'User-Agent': 'My user Agent 1.0'}
-    params = {'limit': 100, 'after': after}
+def count_words(subreddit, word_list, found_list=[], after=None):
+    '''Prints counts of given words found in hot posts of a given subreddit.
+    '''
+    user_agent = {'User-agent': 'test45'}
+    posts = requests.get('http://www.reddit.com/r/{}/hot.json?after={}'
+                         .format(subreddit, after), headers=user_agent)
+    if after is None:
+        word_list = [word.lower() for word in word_list]
 
-    response = requests.get(url, headers=headers, params=params,
-                            allow_redirects=False)
-
-    if response.status_code == 200:
-        data = response.json().get('data', {})
-        children = data.get('children', [])
-        for child in children:
-            post = child.get('data', {})
-            title = post.get('title', '')
-            for word in word_list:
-                if word.lower() in title.lower():
-                    if word in word_count:
-                        word_count[word] += 1
-                    else:
-                        word_count[word] = 1
-        after = data.get('after', None)
-        if after:
-            return count_words(subreddit, word_list, after, word_count)
+    if posts.status_code == 200:
+        posts = posts.json()['data']
+        aft = posts['after']
+        posts = posts['children']
+        for post in posts:
+            title = post['data']['title'].lower()
+            for word in title.split(' '):
+                if word in word_list:
+                    found_list.append(word)
+        if aft is not None:
+            count_words(subreddit, word_list, found_list, aft)
         else:
-            if not len(word_count) > 0:
-                return
-            for key, value in sorted(word_count.items(),
-                                     key=lambda item: item[1],
+            result = {}
+            for word in found_list:
+                if word.lower() in result.keys():
+                    result[word.lower()] += 1
+                else:
+                    result[word.lower()] = 1
+            for key, value in sorted(result.items(), key=lambda item: item[1],
                                      reverse=True):
-                print(f"{key}: {value}")
+                print('{}: {}'.format(key, value))
     else:
         return
